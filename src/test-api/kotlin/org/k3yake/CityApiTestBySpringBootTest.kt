@@ -16,10 +16,12 @@ import org.mockito.BDDMockito.given
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.autoconfigure.condition.SpringBootCondition
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
+import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
@@ -67,7 +69,7 @@ class CityApiTestBySpringBootTest {
                 .hasNumberOfRows(1)
                 .row(0)
                 .value("name").isEqualTo("ebisu")
-                .value("population").isEqualTo(900000)
+                .value("population").isEqualTo(800000)
     }
 
     @Test
@@ -115,14 +117,14 @@ class CityApiTestBySpringBootTest {
                 values(1, "ebisu", 1)
             }
         }.launch()
-        given(populationApi.get("ebisu1")).willReturn(PopulationApi.PopulationApiResponse("ebisu1", 900000))
+        given(populationApi.get("ebisu")).willReturn(PopulationApi.PopulationApiResponse("ebisu", 900000))
         val changees = Changes(dataSource).setStartPointNow()
 
         //実行
         mockServer.perform(MockMvcRequestBuilders.post("/city")
-                .content("""{"name":"ebisu1", "country":"Japan"}""".toString())
+                .content("""{"name":"ebisu", "country":"Japan"}""".toString())
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
+                .andExpect(status().`is`(HttpStatus.CONFLICT.value()))
 
         //確認
         changees.setEndPointNow()
