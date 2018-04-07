@@ -16,17 +16,14 @@ class CityDomainRepository {
     private lateinit var cityRepository: CityRepository
     @Autowired
     private lateinit var countryRepository: CountryRepository
-    @Autowired
-    lateinit var populationApi: PopulationApi
 
     fun create(city: CityDomain):CityDomain {
         val existCountry = countryRepository.findByName(city.country)
-        val population = populationApi.get(city.name)
         if(existCountry == null){
-            val saved = cityRepository.save(City(name = city.name, country = countryRepository.save(Country(name = city.country)),population = population.value))
+            val saved = cityRepository.save(City(name = city.name, country = countryRepository.save(Country(name = city.country))))
             return city.copy(id=saved.id)
         } else {
-            val saved = cityRepository.save(City(name = city.name, country = existCountry,population = population.value))
+            val saved = cityRepository.save(City(name = city.name, country = existCountry))
             return city.copy(id=saved.id)
         }
     }
@@ -71,13 +68,3 @@ private data class Country(
 ){
     constructor(name: String):this(id = 0,name = name)
 }
-
-@Repository
-class PopulationApi {
-    open class PopulationApiResponse(val name: String, val value: Int)
-
-    fun  get(name: String): PopulationApiResponse {
-        return PopulationApiResponse("hoge",8888)
-    }
-}
-

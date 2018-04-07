@@ -27,10 +27,10 @@ minikubeのローカルへのインストール
 	https://github.com/dhiltgen/docker-machine-kvm/releases
 
 
-
 #DOING
 kubenetesを使わずにdockerでCityAPIを動かす
-	テスト修正
+	人口APIを呼び出さない
+
 
 #TODO
 kubenetesを使わずにdockerでCityAPIを動かす

@@ -41,16 +41,13 @@ class CityApiTestBySpringBootTest {
     lateinit var mockServer: MockMvc
     @Autowired
     lateinit var dataSource: DataSource
-    @MockBean
-    lateinit var populationApi: PopulationApi
 
     @Test
-    fun postの仕様_未登録の国の都市の場合_人口情報を付与して都市と国を登録する() {
+    fun postの仕様_未登録の国の都市の場合_都市と国を登録する() {
         //準備
         dbSetup(to = dataSource) {
             deleteAll()
         }.launch()
-        given(populationApi.get("ebisu")).willReturn(PopulationApi.PopulationApiResponse("ebisu", 800000))
 
         //実行
         mockServer.perform(MockMvcRequestBuilders.post("/city")
@@ -69,7 +66,6 @@ class CityApiTestBySpringBootTest {
                 .hasNumberOfRows(1)
                 .row(0)
                 .value("name").isEqualTo("ebisu")
-                .value("population").isEqualTo(800000)
     }
 
     @Test
@@ -82,7 +78,6 @@ class CityApiTestBySpringBootTest {
                 values(1, "Japan")
             }
         }.launch()
-        given(populationApi.get("ebisu")).willReturn(PopulationApi.PopulationApiResponse("ebisu", 900000))
 
         //実行
         mockServer.perform(MockMvcRequestBuilders.post("/city")
@@ -101,7 +96,6 @@ class CityApiTestBySpringBootTest {
                 .hasNumberOfRows(1)
                 .row(0)
                 .value("name").isEqualTo("ebisu")
-                .value("population").isEqualTo(900000)
     }
 
     @Test
@@ -117,7 +111,6 @@ class CityApiTestBySpringBootTest {
                 values(1, "ebisu", 1)
             }
         }.launch()
-        given(populationApi.get("ebisu")).willReturn(PopulationApi.PopulationApiResponse("ebisu", 900000))
         val changees = Changes(dataSource).setStartPointNow()
 
         //実行
@@ -126,31 +119,6 @@ class CityApiTestBySpringBootTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().`is`(HttpStatus.CONFLICT.value()))
 
-        //確認
-        changees.setEndPointNow()
-        Assertions.assertThat(changees).hasNumberOfChanges(0)
-    }
-
-    @Test
-    fun postの仕様_人口情報を取得出来ない場合_エラーとなり登録は行われない() {
-        //準備
-        dbSetup(to = dataSource) {
-            deleteAll()
-            insertInto("country") {
-                columns("id", "name")
-                values(1, "Japan")
-            }
-        }.launch()
-        given(populationApi.get("ebisu")).willThrow(RuntimeException())
-        val changees = Changes(dataSource).setStartPointNow()
-
-        //実行
-        mockServer.perform(MockMvcRequestBuilders.post("/city")
-                .content("""{"name":"ebisu", "country":"Japan"}""".toString())
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is5xxServerError())
-
-        //確認
         //確認
         changees.setEndPointNow()
         Assertions.assertThat(changees).hasNumberOfChanges(0)
