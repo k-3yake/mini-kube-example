@@ -26,17 +26,18 @@ minikubeのローカルへのインストール
 	https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#kvm-driver
 	https://github.com/dhiltgen/docker-machine-kvm/releases
 
+#動作確認方法
+curl -X POST -H "Content-Type: application/json" -d '{"name":"ebisu", "country":"Japan"}' http://localhost:8080/city 
 
 #DOING
 kubenetesを使わずにdockerでCityAPIを動かす
-	人口APIを呼び出さない
-
+	CityApiのDockerファイルの作成
 
 #TODO
 kubenetesを使わずにdockerでCityAPIを動かす
-	必要最小限にCityAPIを修正
-	CityApiのDockerファイルの作成
 	動作確認
 minikubeでCityAPIを動かす
 	動作確認
 デプロイパイプライン作成
+
+

@@ -1,25 +1,20 @@
 package org.k3yake.city.repository
 
 import com.ninja_squad.dbsetup_kotlin.dbSetup
+import org.assertj.core.api.Assertions.assertThat
 import org.assertj.db.api.Assertions
-import org.assertj.db.type.Changes
 import org.assertj.db.type.Table
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.k3yake.domain.CityDomain
 import org.k3yake.Application
+import org.k3yake.deleteAll
+import org.k3yake.domain.CityDomain
 import org.k3yake.repository.CityDomainRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit4.SpringRunner
 import javax.sql.DataSource
-import org.assertj.core.api.Assertions.*
-import org.k3yake.deleteAll
-import org.k3yake.repository.PopulationApi
-import org.mockito.BDDMockito
-import org.mockito.BDDMockito.given
-import org.springframework.boot.test.mock.mockito.MockBean
 
 /**
  * Created by katsuki-miyake on 18/02/24.
@@ -32,8 +27,6 @@ class CityDomainRepositoryTest {
     lateinit var cityDomainRepository: CityDomainRepository
     @Autowired
     lateinit var dataSource:DataSource
-    @MockBean
-    lateinit var populationApi: PopulationApi
 
     @Test
     fun Cityの保存のテスト_Countryがまだない場合_CityとCountryが登録される(){
@@ -41,7 +34,6 @@ class CityDomainRepositoryTest {
         dbSetup(to = dataSource) {
             deleteAll()
         }.launch()
-        given(populationApi.get("name1")).willReturn(PopulationApi.PopulationApiResponse("name1",90))
 
         //実行
         val city = CityDomain(name = "name1", country = "notExistCountry")
@@ -68,7 +60,6 @@ class CityDomainRepositoryTest {
                 values(1, "Japan")
             }
         }.launch()
-        given(populationApi.get("name1")).willReturn(PopulationApi.PopulationApiResponse("name1",90))
 
         //実行
         cityDomainRepository.create(CityDomain(name = "name1", country = "Japan"))

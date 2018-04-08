@@ -49,9 +49,7 @@ private data class City(
     @Column(nullable = false)
     val name: String = "",
     @ManyToOne
-    var country: Country = Country(),
-    @Column
-    val population: Int? = -1
+    var country: Country = Country()
 )
 
 @Repository
