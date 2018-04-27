@@ -12,7 +12,9 @@ spec:
   ports:
   - name: "8080"
     port: 8080
+    nodePort: 32698
     targetPort: 8080
+  type : "NodePort"
   selector:
     io.kompose.service: city-api
 status:

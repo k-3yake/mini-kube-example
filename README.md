@@ -37,17 +37,20 @@ minikubeのローカルへのインストール
     ●プライベートリポジトリの使用
     https://blog.hasura.io/sharing-a-local-registry-for-minikube-37c7240d0615
 
+Service間の通信の設定
+    ※komposeはnetworksに対応していない
+
 #動作確認
 curl -X POST -H "Content-Type: application/json" -d '{"name":"ebisu", "country":"Japan"}' http://localhost:8080/city 
 
 #DOING
 minikubeでCityAPIを動かす
   komposeでファイルを作成しデプロイ
-    sqlファイルをDBイメージにコピー
+    apiからのDB＿HOSTの指定の方法（今は固定値）
 
 #TODO
 minikubeでCityAPIを動かす
     komposeでファイルを作成しデプロイ
-      city-apiのimageが見つからない
-      動作確認
+      sqlファイルをDBイメージにコピー(直接SQLで作った)
+      
 デプロイパイプライン作成
