@@ -2,7 +2,7 @@
 以下のものを得たい
 ・k8sの概要
 ・k8sのなんとなくの動かし方
-・pod間の通信
+・service間の通信
 ・serviceへの外部からの接続
 ・k8sでのCD方法
 
@@ -20,24 +20,34 @@ minikubeのローカルへのインストール
 	●kvs install
 	sudo apt-get install qemu-kvm libvirt-bin virtinst bridge-utils cpu-checker
 	BIOSからVM系を有効に
-	●Running Kubernetes Locally via Minikube
-	https://kubernetes.io/docs/getting-started-guides/minikube/
 	●KVMドライバーインストール
 	https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#kvm-driver
 	https://github.com/dhiltgen/docker-machine-kvm/releases
+	●Running Kubernetes Locally via Minikube
+   	https://kubernetes.io/docs/getting-started-guides/minikube/
+   	●dashbord
+   	minikube dashboard --url
 
-#動作確認方法
+デプロイ
+   	●kompose
+   	https://kubernetes.io/docs/tools/kompose/user-guide/
+   	kubectl create -f city-api-service.yaml,db-service.yaml,city-api-deployment.yaml,db-deployment.yaml,db-claim0-persistentvolumeclaim.yaml
+   	●nodePortを指定
+   	https://qiita.com/suzukihi724/items/5e16855c3941e629ff70
+    ●プライベートリポジトリの使用
+    https://blog.hasura.io/sharing-a-local-registry-for-minikube-37c7240d0615
+
+#動作確認
 curl -X POST -H "Content-Type: application/json" -d '{"name":"ebisu", "country":"Japan"}' http://localhost:8080/city 
 
 #DOING
-kubenetesを使わずにdockerでCityAPIを動かす
-	CityApiのDockerファイルの作成
+minikubeでCityAPIを動かす
+  komposeでファイルを作成しデプロイ
+    sqlファイルをDBイメージにコピー
 
 #TODO
-kubenetesを使わずにdockerでCityAPIを動かす
-	動作確認
 minikubeでCityAPIを動かす
-	動作確認
+    komposeでファイルを作成しデプロイ
+      city-apiのimageが見つからない
+      動作確認
 デプロイパイプライン作成
-
-
