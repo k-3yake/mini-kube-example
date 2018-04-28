@@ -45,10 +45,6 @@ curl -X POST -H "Content-Type: application/json" -d '{"name":"ebisu", "country":
 
 #DOING
 Rediness Probの検証
-  検証出来る作りにする
-    初期データとgetの作成
-    monitorの作成
-    sleepの仕組み
   Probの作成
 
 #TODO
