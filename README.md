@@ -44,13 +44,21 @@ Service間の通信の設定
 curl -X POST -H "Content-Type: application/json" -d '{"name":"ebisu", "country":"Japan"}' http://localhost:8080/city 
 
 #DOING
-minikubeでCityAPIを動かす
-  komposeでファイルを作成しデプロイ
-    apiからのDB＿HOSTの指定の方法（今は固定値）
+Rediness Probの検証
+  検証出来る作りにする
+    初期データとgetの作成
+    monitorの作成
+    sleepの仕組み
+  Probの作成
 
 #TODO
-minikubeでCityAPIを動かす
-    komposeでファイルを作成しデプロイ
-      sqlファイルをDBイメージにコピー(直接SQLで作った)
+RollingUpdateのデモ
+redis-clusterとstatefulSet
+ローカルでの開発の仕組みの検討
+  ideからk8sのDBにつなぐ
+redisを使用したk8sの検討
+  並列化はどうするか？
+  バックアップはどうするか?
+  書き込みの共有はどうするか？
       
 デプロイパイプライン作成
