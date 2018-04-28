@@ -25,6 +25,6 @@ spec:
         resources: {}
         env:
          - name: "DB_HOST"
-           value: "10.104.80.3"
+           value: "city-api-db"
       restartPolicy: Always
 status: {}

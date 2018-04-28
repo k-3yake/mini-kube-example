@@ -7,7 +7,7 @@ metadata:
   creationTimestamp: null
   labels:
     io.kompose.service: db
-  name: db
+  name: city-api-db
 spec:
   ports:
   - name: "city-api-db"
