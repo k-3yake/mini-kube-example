@@ -26,11 +26,5 @@ spec:
         env:
          - name: "DB_HOST"
            value: "city-api-db"
-        readinessProbe:
-          httpGet:
-            path: /ready
-            port: 8080
-          initialDelaySeconds: 3
-          periodSeconds: 20
       restartPolicy: Always
 status: {}

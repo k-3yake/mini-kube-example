@@ -7,7 +7,7 @@ import (
 )
 
 func monitoring() {
-	resp, err := http.Get("http://localhost:8080/ready")
+	resp, err := http.Get("http://192.168.42.110:32698/ready")
 	if (err != nil || resp.StatusCode != 200){
 		println("[" + time.Now().Format(time.StampMilli) + "]アカーン！!")
 		return
@@ -17,7 +17,7 @@ func monitoring() {
 
 func main() {
 	for true {
-		time.Sleep(500 * time.Millisecond)
+		time.Sleep(50 * time.Millisecond)
 		go func() {
 		  monitoring()
 		}()

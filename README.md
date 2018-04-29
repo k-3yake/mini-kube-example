@@ -35,7 +35,7 @@ minikubeのローカルへのインストール
    	●nodePortを指定
    	https://qiita.com/suzukihi724/items/5e16855c3941e629ff70
     ●プライベートリポジトリの使用
-    https://blog.hasura.io/sharing-a-local-registry-for-minikube-37c7240d0615
+    https://blog.hasura.io/sharing-a-local-registry-for-minikube-37c7240d0615x
 
 Service間の通信の設定
     ※komposeはnetworksに対応していない
@@ -44,9 +44,6 @@ Service間の通信の設定
 curl -X POST -H "Content-Type: application/json" -d '{"name":"ebisu", "country":"Japan"}' http://localhost:8080/city 
 
 #DOING
-Rediness Probの検証
-  monitorの実行可能ファイルを作成
-  Probの作成
 
 #TODO
 RollingUpdateのデモ
