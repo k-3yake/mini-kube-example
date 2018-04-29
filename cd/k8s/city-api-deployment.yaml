@@ -10,7 +10,10 @@ metadata:
   name: city-api
 spec:
   replicas: 2
-  strategy: {}
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   template:
     metadata:
       creationTimestamp: null
@@ -18,7 +21,7 @@ spec:
         io.kompose.service: city-api
     spec:
       containers:
-      - image: localhost:5000/org.k3yake/city-api:latest
+      - image: localhost:5000/org.k3yake/city-api:20180429153711
         name: city-api
         ports:
         - containerPort: 8080
@@ -31,6 +34,6 @@ spec:
             path: /ready
             port: 8080
           initialDelaySeconds: 3
-          periodSeconds: 20
+          periodSeconds: 30
       restartPolicy: Always
 status: {}

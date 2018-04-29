@@ -20,7 +20,7 @@ class SystemApi {
     @PostConstruct
     fun init() {
         println("sleep start")
-        Thread.sleep(10 * 1000)
+        Thread.sleep(1 * 1000)
         println("sleep end")
         redy = true
     }

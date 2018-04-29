@@ -40,6 +40,9 @@ minikubeのローカルへのインストール
     $(kubectl get po -n kube-system | grep kube-registry-v0 | \
     awk '{print $1;}') 5000:5000
 
+メモ
+Deploymentをdelete時の--cascade
+
 Service間の通信の設定
     ※komposeはnetworksに対応していない
 
@@ -47,15 +50,13 @@ Service間の通信の設定
 curl -X POST -H "Content-Type: application/json" -d '{"name":"ebisu", "country":"Japan"}' http://localhost:8080/city 
 
 #DOING
-DB
-
-#TODO
 RollingUpdateのデモ
   RollingUpdateの設定を入れる
-  Gracdful shutdown
+  Graceful shutdown
+
+#TODO
 ローカルでの開発の仕組みの検討
   ideからk8sのDBにつなぐ
-  
 redisを使用したk8sの検討
 　redis-clusterとstatefulSet
   並列化はどうするか？
