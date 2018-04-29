@@ -8,10 +8,8 @@ services:
     links:
       - db
   db:
-    image: mysql:latest
+    image: localhost:5000/org.k3yake/city-api-db:latest
     container_name: city-api-db
-    volumes:
-      - ./mysql:/docker-entrypoint-initdb.d
     environment:
       - MYSQL_ROOT_PASSWORD=root
     ports:
