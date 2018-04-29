@@ -45,6 +45,7 @@ curl -X POST -H "Content-Type: application/json" -d '{"name":"ebisu", "country":
 
 #DOING
 Rediness Probの検証
+  monitorの実行可能ファイルを作成
   Probの作成
 
 #TODO
